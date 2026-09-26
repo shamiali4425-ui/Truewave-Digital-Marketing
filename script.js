@@ -4,7 +4,7 @@
  * Provides interactive features, animations, navigation, form validation, and accessible modals.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   'use strict';
 
   /* ==========================================================================
@@ -17,17 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollY = window.scrollY || window.pageYOffset;
 
     // Header styling on scroll
-    if (scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+    if (header) {
+      if (scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
     }
 
     // Back to top button visibility
-    if (scrollY > 450) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
+    if (backToTopBtn) {
+      if (scrollY > 450) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
     }
   }
 
@@ -54,18 +58,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link, .mobile-cta-btn');
 
   function openMobileMenu() {
-    mobileMenu.classList.add('open');
-    mobileMenuOverlay.classList.add('open');
-    mobileMenu.setAttribute('aria-hidden', 'false');
-    mobileToggle.setAttribute('aria-expanded', 'true');
+    if (mobileMenu) {
+      mobileMenu.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+    }
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.classList.add('open');
+    }
+    if (mobileToggle) {
+      mobileToggle.setAttribute('aria-expanded', 'true');
+    }
     document.body.style.overflow = 'hidden';
   }
 
   function closeMobileMenu() {
-    mobileMenu.classList.remove('open');
-    mobileMenuOverlay.classList.remove('open');
-    mobileMenu.setAttribute('aria-hidden', 'true');
-    mobileToggle.setAttribute('aria-expanded', 'false');
+    if (mobileMenu) {
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.classList.remove('open');
+    }
+    if (mobileToggle) {
+      mobileToggle.setAttribute('aria-expanded', 'false');
+    }
     document.body.style.overflow = '';
   }
 
@@ -656,5 +672,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+}
 
-});
+// Bulletproof execution ensuring initApp runs whether loaded before or after DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
