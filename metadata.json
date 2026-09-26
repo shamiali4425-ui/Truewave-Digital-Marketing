@@ -1,0 +1,6 @@
+{
+  "name": "Truewave Digital Marketing",
+  "description": "A modern, responsive business website for Truewave Digital Marketing agency featuring custom interactive analytics visuals, service details, and client inquiry tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
